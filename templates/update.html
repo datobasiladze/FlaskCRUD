@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update</title>
+</head>
+<body>
+<form id="updateForm">
+  <input type="text" name="update" id="update" value="{{ note }}">
+  <button type="submit">Update</button>
+</form>
+
+<p id="result"></p>
+
+<script>
+    const form = document.getElementById("updateForm");
+    form.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const update = document.getElementById("update").value
+
+        const response = await fetch("/update/{{ id }}", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                update: update
+            })
+        });
+
+        if (response.ok) {
+            window.location.href = "/";
+        }
+    });
+</script>
+</body>
+</html>
